@@ -25,7 +25,9 @@ class CartCubit extends Cubit<CartState> {
   Future<void> fetchCarts() async {
     emit(CartLoading());
 
-    await _hiveService.init();
+    if (!_hiveService.hasInitialized) {
+      await _hiveService.init();
+    }
     int userId = await _hiveService.getUserId();
     log(userId.toString());
 

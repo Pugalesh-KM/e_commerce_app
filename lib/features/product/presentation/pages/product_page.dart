@@ -34,6 +34,18 @@ class ProductPage extends StatelessWidget {
             icon: const Icon(Icons.shopping_cart_outlined),
             color: AppColors.colorPrimary,
           ),
+          IconButton(
+            onPressed: () async {
+              final cubit = context.read<ProductCubit>();
+              await cubit.logOut();
+
+              if (context.mounted) {
+                context.go(RoutesName.loginPath);
+              }
+            },
+            icon: const Icon(Icons.logout_outlined),
+            color: AppColors.colorRed,
+          ),
         ],
       ),
       body: BlocConsumer<ProductCubit, ProductState>(
