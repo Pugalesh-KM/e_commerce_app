@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:e_commerce_app/core/constants/constants.dart';
 import 'package:e_commerce_app/core/database/storage_service.dart';
 import 'package:e_commerce_app/shared/models/user_data.dart';
@@ -15,7 +14,6 @@ class HiveService implements StorageService {
   @override
   Future<void> init() async {
     await Hive.initFlutter();
-    log('hive init');
     initCompleter.complete(Hive.openBox('bloc2025HiveService'));
   }
 
@@ -82,7 +80,6 @@ class HiveService implements StorageService {
   }
 
   Future<bool> isLoggedIn() async {
-    log('isLoggedIn');
     final token = await get(userToken);
     return token != null;
 

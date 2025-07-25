@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:e_commerce_app/core/constants/constants.dart';
 import 'package:e_commerce_app/core/constants/routes.dart';
 import 'package:e_commerce_app/core/dependency_injection/injector.dart';
 import 'package:e_commerce_app/features/login/domain/usecases/login_usecase.dart';
@@ -49,7 +48,7 @@ class _LoginState extends State<Login> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Login successful')),
                   );
-                  context.go(RoutesName.productPath);
+                  context.go(RoutesName.authPath);
                 } else if (state is LoginLoaded && state.isError) {
                   _showErrorSnackBar(context, state.errorMessage);
                   _loginCubit.resetError();
@@ -86,7 +85,6 @@ class _LoginState extends State<Login> {
                       textEditingController: useNameTextController,
                       hintText: "USERNAME".tr,
                       title: "USERNAME".tr,
-                      svgIconPath: splashIcon,
                       inputType: TextInputType.text,
                       onChange: (value) =>
                           context.read<LoginCubit>().validateName(value),
@@ -102,7 +100,6 @@ class _LoginState extends State<Login> {
                       textEditingController: passwordTextController,
                       hintText: "PASSWORD".tr,
                       title: "PASSWORD".tr,
-                      svgIconPath: splashIcon,
                       isPassword: true,
                       onChange: (value) =>
                           context.read<LoginCubit>().validatePassword(value),

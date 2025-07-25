@@ -9,11 +9,17 @@ import 'package:go_router/go_router.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter router = GoRouter(
-  initialLocation: RoutesName.defaultPath,
+  initialLocation: RoutesName.authPath,
   navigatorKey: navigatorKey,
   routes: <RouteBase>[
     GoRoute(
       path: RoutesName.defaultPath,
+      builder: (BuildContext context, GoRouterState state) {
+        return AuthPage();
+      },
+    ),
+    GoRoute(
+      path: RoutesName.authPath,
       builder: (BuildContext context, GoRouterState state) {
         return AuthPage();
       },
