@@ -1,4 +1,5 @@
-import 'package:e_commerce_app/features/product/domain/entities/product_entity.dart';
+
+import 'package:e_commerce_app/features/product/data/models/product_model.dart';
 import 'package:e_commerce_app/shared/config/dimens.dart';
 import 'package:e_commerce_app/shared/theme/app_colors.dart';
 import 'package:e_commerce_app/shared/theme/text_styles.dart';
@@ -9,7 +10,7 @@ class CartProductCardView extends StatelessWidget {
     super.key, required this.product, required this.quantity, required this.price,
   });
 
-  final ProductEntity product;
+  final ProductModel product;
   final int quantity;
   final double price;
 
@@ -30,6 +31,7 @@ class CartProductCardView extends StatelessWidget {
             width: Dimens.standard_60,
             height: Dimens.standard_60,
             fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
           ),
         ),
         title: Text(

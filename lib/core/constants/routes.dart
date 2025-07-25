@@ -3,4 +3,5 @@ class RoutesName{
   static const loginPath = '/login';
   static const cartPath = '/cart';
   static const productPath= '/product';
+  static const authPath = '/auth';
 }

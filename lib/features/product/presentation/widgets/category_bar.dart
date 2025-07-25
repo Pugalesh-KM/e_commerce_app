@@ -1,7 +1,7 @@
+import 'package:e_commerce_app/features/product/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/shared/theme/app_colors.dart';
 import 'package:e_commerce_app/shared/theme/text_styles.dart';
-import '../../domain/entities/product_entity.dart';
 
 class CategoryBar extends StatelessWidget {
   final Category? selectedCategory;

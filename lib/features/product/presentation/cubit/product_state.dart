@@ -6,13 +6,9 @@ class ProductInitial extends ProductState{}
 
 class ProductLoading extends ProductState{}
 
-class ProductLoaded extends ProductState{
-  final List<ProductEntity> products;
-  ProductLoaded(this.products,);
-}
 
 class ProductSuccess extends ProductState{
-  final List<ProductEntity> products;
+  final List<ProductModel> products;
   final Category? selectedCategory;
   ProductSuccess(this.products,[this.selectedCategory]);
 }

@@ -1,11 +1,11 @@
+import 'package:e_commerce_app/features/product/data/models/product_model.dart';
 import 'package:e_commerce_app/shared/config/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/shared/theme/app_colors.dart';
 import 'package:e_commerce_app/shared/theme/text_styles.dart';
-import '../../domain/entities/product_entity.dart';
 
 class ProductCardView extends StatelessWidget {
-  final ProductEntity product;
+  final ProductModel product;
 
   const ProductCardView({super.key, required this.product});
 

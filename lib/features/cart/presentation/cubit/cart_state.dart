@@ -13,7 +13,9 @@ class CartLoaded extends CartState{
 
 class CartSuccess extends CartState{
   final List<CartModel> carts;
-  CartSuccess(this.carts);
+  final List<CartItemEntity> cartItems;
+  final double total;
+  CartSuccess(this.carts, this.cartItems, this.total);
 }
 
 

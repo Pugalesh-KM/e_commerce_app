@@ -1,4 +1,6 @@
+
 import 'package:e_commerce_app/core/constants/routes.dart';
+import 'package:e_commerce_app/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:e_commerce_app/features/product/presentation/cubit/product_cubit.dart';
 import 'package:e_commerce_app/features/product/presentation/widgets/category_bar.dart';
 import 'package:e_commerce_app/features/product/presentation/widgets/product_card_view.dart';
@@ -15,8 +17,10 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ProductCubit>();
-
+    final productCubit = context.read<ProductCubit>();
+    if(productCubit.state is ProductInitial){
+      productCubit.fetchProducts();
+    }
     return Scaffold(
       backgroundColor: AppColors.appBackGround,
       appBar: AppBar(
@@ -36,8 +40,8 @@ class ProductPage extends StatelessWidget {
           ),
           IconButton(
             onPressed: () async {
-              final cubit = context.read<ProductCubit>();
-              await cubit.logOut();
+              await context.read<CartCubit>().logOut();
+              await productCubit.logOut();
 
               if (context.mounted) {
                 context.go(RoutesName.loginPath);
@@ -49,8 +53,8 @@ class ProductPage extends StatelessWidget {
         ],
       ),
       body: BlocConsumer<ProductCubit, ProductState>(
-        listenWhen: (previous, current) => current is ProductError,
         listener: (context, state) {
+
           if (state is ProductError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -61,14 +65,13 @@ class ProductPage extends StatelessWidget {
                   ),
                 ),
                 backgroundColor: AppColors.colorRed,
+
               ),
             );
           }
         },
-        buildWhen: (previous, current) =>
-        current is ProductSuccess || current is ProductLoading,
         builder: (context, state) {
-          final selectedCategory = cubit.selectedCategory;
+          final selectedCategory = productCubit.selectedCategory;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +90,7 @@ class ProductPage extends StatelessWidget {
               ),
               CategoryBar(
                 selectedCategory: selectedCategory,
-                onCategorySelected: cubit.filterByCategory,
+                onCategorySelected: productCubit.filterByCategory,
               ),
               Expanded(child: _buildProductGrid(state)),
             ],
@@ -98,7 +101,7 @@ class ProductPage extends StatelessWidget {
   }
 
   Widget _buildProductGrid(ProductState state) {
-    if (state is ProductLoading) {
+    if (state is ProductInitial ||state is ProductLoading) {
       return const Center(
         child: CircularProgressIndicator(
           color: AppColors.colorPrimary,
@@ -123,11 +126,6 @@ class ProductPage extends StatelessWidget {
       );
     }
 
-    return const Center(
-      child: Text(
-        "Unable to load products.",
-        style: AppTextStyles.openSansRegular14,
-      ),
-    );
+    return const SizedBox.shrink();
   }
 }
